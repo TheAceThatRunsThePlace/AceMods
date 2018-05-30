@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{219EB209-C34A-4ED4-8F3F-7D05FBA0592C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ace</RootNamespace>
+    <AssemblyName>Ace</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\..\Program Files %28x86%29\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Carlzilla, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\Carlzilla.dll</HintPath>
+    </Reference>
+    <Reference Include="MoveLists, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\MoveLists.dll</HintPath>
+    </Reference>
+    <Reference Include="PWGR Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\PWGR Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Fire Prowrestling World\FireProWrestlingW_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArenaFuckery.cs" />
+    <Compile Include="ArenaFuckeryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArenaFuckeryForm.Designer.cs">
+      <DependentUpon>ArenaFuckeryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditFuckery.cs" />
+    <Compile Include="AnimatedAprons.cs" />
+    <Compile Include="ApronConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApronConfig.Designer.cs">
+      <DependentUpon>ApronConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FirstBloodMatch.cs" />
+    <Compile Include="MaskVsMaskMatch.cs" />
+    <Compile Include="MatchSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MatchSelectionForm.Designer.cs">
+      <DependentUpon>MatchSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApronConfig.resx">
+      <DependentUpon>ApronConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArenaFuckeryForm.resx">
+      <DependentUpon>ArenaFuckeryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatchSelectionForm.resx">
+      <DependentUpon>MatchSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
