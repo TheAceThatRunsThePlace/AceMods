@@ -13,10 +13,11 @@ namespace Ace
     public class ArenaFuckery
     {
         /*
+        [Hook(TargetClass = "MatchMain", TargetMethod = "CreatePlayers", InjectionLocation = int.MaxValue, InjectDirection = HookInjectDirection.Before, InjectFlags = HookInjectFlags.None, Group = "ArenaFuckery")]
+        public static void Main()
+        {
 
-       
-        
-
+        }
 
         [ControlPanel(Group = "ArenaFuckery")]
         public static Form arConf()

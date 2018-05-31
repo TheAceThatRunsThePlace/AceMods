@@ -28,6 +28,11 @@ namespace Ace
 
             comboBox2.SelectedIndex = 0;
             LoadRingsP();
+
+            /*
+            comboBox3.SelectedIndex = 0;
+            LoadRingsRamps();
+            */
         }
 
         private void LoadRings()
@@ -469,5 +474,108 @@ namespace Ace
         {
 
         }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*
+            if (File.Exists("./AceModsData/AnmRamps/" + listBox3.SelectedItem.ToString() + "/" + listBox3.SelectedItem.ToString() + ".dat"))
+            {
+                StreamReader datReader = new StreamReader("./AceModsData/AnmRamps/" + listBox3.SelectedItem.ToString() + "/" + listBox3.SelectedItem.ToString() + ".dat");
+
+                try
+                {
+                    string format = datReader.ReadLine();
+                    if (format == "Frames")
+                    {
+                        comboBox3.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        comboBox3.SelectedIndex = 1;
+                    }
+                    numericUpDown5.Value = int.Parse(datReader.ReadLine());
+                }
+                catch
+                {
+                    comboBox3.SelectedIndex = 0;
+                    numericUpDown5.Value = 1;
+                }
+
+                datReader.Dispose();
+                datReader.Close();
+            }
+            else
+            {
+                comboBox3.SelectedIndex = 0;
+                numericUpDown5.Value = 1;
+            }
+            button5_Click(null, null);
+            */
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*
+            switch (comboBox3.SelectedIndex)
+            {
+                case 0:
+                    numericUpDown5.Value = 1;
+                    numericUpDown5.Maximum = 29;
+                    break;
+                case 1:
+                    numericUpDown5.Maximum = 59;
+                    break;
+            }
+            */
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // LoadRingsRamps();
+        }
+
+        private void LoadRingsRamps()
+        {
+            /*
+            listBox3.Items.Clear();
+            foreach (RingData ring in SaveData.inst.editRingData)
+            {
+                listBox3.Items.Add(ring.name);
+            }
+            */
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            /*
+            if (listBox3.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            if (!Directory.Exists("./AceModsData/AnmRamps/" + listBox3.SelectedItem.ToString() + "/"))
+            {
+                Directory.CreateDirectory("./AceModsData/AnmRamps/" + listBox3.SelectedItem.ToString() + "/");
+            }
+
+            StreamWriter datWriter = new StreamWriter("./AceModsData/AnmRamps/" + listBox3.SelectedItem.ToString() + "/" + listBox3.SelectedItem.ToString() + ".dat");
+            datWriter.WriteLine(comboBox3.SelectedItem.ToString());
+            datWriter.WriteLine(numericUpDown5.Value);
+
+            datWriter.Dispose();
+            datWriter.Close();
+            */
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

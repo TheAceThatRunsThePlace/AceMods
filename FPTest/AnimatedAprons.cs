@@ -11,6 +11,8 @@ namespace Ace
     [FieldAccess(Class = "EntranceScene", Field = "StateEnum", Group = "AnmAprons")]
     [FieldAccess(Class = "EntranceScene", Field = "state", Group = "AnmAprons")]
     [FieldAccess(Class = "EntranceScene", Field = "totalTimer", Group = "AnmAprons")]
+    [FieldAccess(Class = "MatchMain", Field = "State", Group = "AnmAprons")]
+    [FieldAccess(Class = "MatchMain", Field = "StateEnum", Group = "AnmAprons")]
 
     [GroupDescription(Name = "Animated Ring Parts", Description = "Animate several different ring parts using a sequence of images.", Group = "AnmAprons")]
     public class AnimatedAprons
@@ -49,7 +51,14 @@ namespace Ace
         public static Renderer postRend2 = null;
         public static Renderer postRend3 = null;
 
-
+        /*
+        public static Texture[] rampTex = new Texture[1];
+        public static int rampTexSwapTime = 1;
+        public static string rampTimeMethod = "Frames";
+        public static bool loadRamp = false;
+        public static int texIdxRamp = 0;
+        public static Renderer rampRend = null;
+        */
 
         [Hook(TargetClass = "MatchMain", TargetMethod = "CreatePlayers", InjectionLocation = int.MaxValue, InjectDirection = HookInjectDirection.Before, InjectFlags = HookInjectFlags.None, Group = "AnmAprons")]
         public static void LoadTextures()
@@ -88,6 +97,8 @@ namespace Ace
             texIdxLeft = 0;
             texIdxEdit0 = 0;
             texIdxEdit1 = 0;
+
+            
 
             if (File.Exists("./AceModsData/AnmAprons/" + ringName + "/" + ringName + ".dat"))
             {
@@ -360,14 +371,100 @@ namespace Ace
             {
                 loadPost = true;
             }
+
+
+
+            /* RAMPS
+            rampTex = new Texture[1];
+            rampTexSwapTime = 1;
+            rampTimeMethod = "Frames";
+            loadRamp = false;
+            texIdxRamp = 0;
+
+            if (File.Exists("./AceModsData/AnmRamps/" + ringName + "/" + ringName + ".dat"))
+            {
+                StreamReader rdReader = new StreamReader("./AceModsData/AnmRamps/" + ringName + "/" + ringName + ".dat");
+                rampTimeMethod = rdReader.ReadLine();
+                rampTexSwapTime = int.Parse(rdReader.ReadLine());
+
+                rdReader.Dispose();
+                rdReader.Close();
+            }
+            else
+            {
+                rampTimeMethod = "Frames";
+                rampTexSwapTime = 1;
+            }
+
+            DirectoryInfo Rdi = new DirectoryInfo("./AceModsData/AnmRamps/" + ringName + "/");
+            FileInfo[] filesRamp = Rdi.GetFiles(ringName + "_AR01_Stage*.png");
+
+            List<Texture> texListRamp = new List<Texture>();
+
+            foreach (FileInfo f in filesRamp)
+            {
+                byte[] fileData = new byte[1];
+                fileData = File.ReadAllBytes(f.FullName);
+                Texture2D tempTex = new Texture2D(2, 2);
+                tempTex.LoadImage(fileData);
+                Texture rampTex = new Texture();
+                rampTex = (Texture)tempTex;
+                texListRamp.Add(rampTex);
+            }
+
+
+            rampTex = texListRamp.ToArray();
+            L.D("RAMP TEX LOADED: " + rampTex.Length);
+            if (rampTimeMethod == "Seconds")
+            {
+                L.D("TIMING METHOD: SECONDS");
+            }
+            else
+            {
+                L.D("TIMING METHOD: FRAMES");
+            }
+
+            if (rampTex.Length > 0)
+            {
+                loadRamp = true;
+            }
+            */
         }
 
 
         [Hook(TargetClass = "MatchMain", TargetMethod = "Awake", InjectionLocation = int.MaxValue, InjectDirection = HookInjectDirection.Before, InjectFlags = HookInjectFlags.None, Group = "AnmAprons")]
         public static void SetMatRender()
         {
-            apronRend = null;
             Ring r = Ring.inst;
+            apronRend = null;
+
+            /*
+            rampRend = null;
+
+            if (loadRamp)
+            {
+                foreach (Component c in r.transform.GetComponentsInChildren<Component>())
+                {
+                    if (c.GetComponent<MeshRenderer>() != null)
+                    {
+                        Renderer rend = c.GetComponent<MeshRenderer>();
+                        if (c.name == "AR01_Stage")
+                        {
+                            rampRend = rend;
+                            break;
+                        }
+                    }
+                }
+                if (!MatchMain.inst.isTimeCounting && !MatchMain.inst.Pause)
+                {
+                    if (loadRamp)
+                    {
+                        rampRend.materials[0].SetTexture("_MainTex", rampTex[0]);
+                    }
+                   
+                }
+            }
+            */
 
             if (loadApron || loadMat)
             {
@@ -1317,6 +1414,152 @@ namespace Ace
                     }
                 }
             }
+
+
+
+
+
+            /* RAMPS
+
+            if (rampRend != null)
+            {
+                if (MatchMain.inst.isTimeCounting)
+                {
+                    if (rampTimeMethod == "Seconds")
+                    {
+                        if (loadRamp)
+                        {
+                            if (MatchMain.inst.matchTime.frm != 0)
+                            {
+                                return;
+                            }
+                            if (MatchMain.inst.matchTime.sec % rampTexSwapTime == 0)
+                            {
+                                rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+                                texIdxRamp++;
+                                // L.D("RAMP TEX CHANGE // SECONDS METHOD");
+
+                                if (texIdxRamp >= rampTex.Length)
+                                {
+                                    texIdxRamp = 0;
+                                }
+                            }
+                        }
+                    }
+                    else if (rampTimeMethod == "Frames")
+                    {
+                        if (loadRamp)
+                        {
+                            if (MatchMain.inst.matchTime.frm % rampTexSwapTime == 0)
+                            {
+                                if (loadRamp)
+                                {
+                                    rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+
+                                    texIdxRamp++;
+                                    // L.D("RAMP TEX CHANGE // FRAMES METHOD");
+
+
+                                    if (texIdxRamp >= rampTex.Length)
+                                    {
+                                        texIdxRamp = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (MatchMain.inst.State != MatchMain.StateEnum.EntranceScene || MatchMain.inst.State == MatchMain.StateEnum.Finished)
+                {
+                    int frames = 0;
+                    frames++;
+                    if (frames > 29)
+                    {
+                        frames = 0;
+                    }
+
+                    if (rampTimeMethod == "Seconds")
+                    {
+                        if (loadRamp)
+                        {
+                            if (frames % (rampTexSwapTime * 30) == 0)
+                            {
+                                rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+                                texIdxRamp++;
+                                // L.D("RAMP TEX CHANGE // SECONDS METHOD");
+
+                                if (texIdxRamp >= rampTex.Length)
+                                {
+                                    texIdxRamp = 0;
+                                }
+                            }
+                        }
+                    }
+                    else if (rampTimeMethod == "Frames")
+                    {
+                        if (loadRamp)
+                        {
+                            if (frames % rampTexSwapTime == 0)
+                            {
+                                if (loadRamp)
+                                {
+                                    rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+                                    texIdxRamp++;
+                                    // L.D("RAMP TEX CHANGE // FRAMES METHOD");
+
+
+                                    if (texIdxRamp >= rampTex.Length)
+                                    {
+                                        texIdxRamp = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (rampTimeMethod == "Seconds")
+                    {
+                        if (loadRamp)
+                        {
+                            if (EntranceScene.inst.totalTimer % (rampTexSwapTime * 30) == 0)
+                            {
+                                rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+                                texIdxRamp++;
+                                // L.D("RAMP TEX CHANGE // SECONDS METHOD");
+
+                                if (texIdxRamp >= rampTex.Length)
+                                {
+                                    texIdxRamp = 0;
+                                }
+                            }
+                        }
+                    }
+                    else if (rampTimeMethod == "Frames")
+                    {
+                        if (loadRamp)
+                        {
+                            if (EntranceScene.inst.totalTimer % rampTexSwapTime == 0)
+                            {
+                                if (loadRamp)
+                                {
+                                    rampRend.materials[0].SetTexture("_MainTex", rampTex[texIdxRamp]);
+                                    texIdxRamp++;
+                                    // L.D("RAMP TEX CHANGE // FRAMES METHOD");
+
+
+                                    if (texIdxRamp >= rampTex.Length)
+                                    {
+                                        texIdxRamp = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            */
         }
 
 
