@@ -64,6 +64,18 @@
     <Compile Include="ArenaFuckeryForm.Designer.cs">
       <DependentUpon>ArenaFuckeryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Attire Select.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Attire Select.Designer.cs">
+      <DependentUpon>Attire Select.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AttireExtensionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttireExtensionForm.Designer.cs">
+      <DependentUpon>AttireExtensionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditFuckery.cs" />
     <Compile Include="AnimatedAprons.cs" />
     <Compile Include="ApronConfig.cs">
@@ -80,6 +92,12 @@
     <Compile Include="MatchSelectionForm.Designer.cs">
       <DependentUpon>MatchSelectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PreMatchTauntsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreMatchTauntsForm.Designer.cs">
+      <DependentUpon>PreMatchTauntsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,8 +112,17 @@
     <EmbeddedResource Include="ArenaFuckeryForm.resx">
       <DependentUpon>ArenaFuckeryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Attire Select.resx">
+      <DependentUpon>Attire Select.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttireExtensionForm.resx">
+      <DependentUpon>AttireExtensionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MatchSelectionForm.resx">
       <DependentUpon>MatchSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreMatchTauntsForm.resx">
+      <DependentUpon>PreMatchTauntsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
