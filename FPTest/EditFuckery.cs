@@ -68,6 +68,10 @@ namespace Ace
                             {
                                 plObj.FormRen.DestroySprite();
                                 plObj.FormRen.InitTexture(loadedCostumeData);
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    plObj.FormRen.partsScale[i] = loadedCostumeData.partsScale[i];
+                                }
                                 plObj.FormRen.InitSprite(false);
                                 L.D("ATTIRE EXTENSION: ATTIRE CHANGED");
                             }

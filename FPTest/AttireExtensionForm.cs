@@ -19,6 +19,7 @@ namespace Ace
         public static int id;
         public static int[] test = new int[0];
         public static int[] numVal = new int[8];
+        public static SaveData saveData = SaveData.inst;
 
         public static int cos;
         public static int txtToImport;
@@ -50,7 +51,7 @@ namespace Ace
             name = listBox1.SelectedItem.ToString();
             id = listBox1.SelectedIndex;
 
-            SaveData saveData = SaveData.inst;
+            saveData = SaveData.inst;
             EditWrestlerData editDat = saveData.editWrestlerData[id];
             CostumeData[] cosDat = editDat.appearanceData.costumeData;
 
@@ -99,7 +100,39 @@ namespace Ace
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            saveData = SaveData.inst;
+            if (!saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[0].valid)
+            {
+                button4.Enabled = false;
+            }
+            else
+            {
+                button4.Enabled = true;
+            }
+            if (!saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[1].valid)
+            {
+                button5.Enabled = false;
+            }
+            else
+            {
+                button5.Enabled = true;
+            }
+            if (!saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[2].valid)
+            {
+                button3.Enabled = false;
+            }
+            else
+            {
+                button3.Enabled = true;
+            }
+            if (!saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[3].valid)
+            {
+                button6.Enabled = false;
+            }
+            else
+            {
+                button6.Enabled = true;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -122,40 +155,50 @@ namespace Ace
 
         }
 
-        private void SaveIndividualAttires(int num, string fname)
+        private void SaveIndividualAttires(int num)
         {
             name = listBox1.SelectedItem.ToString();
             id = listBox1.SelectedIndex;
 
-            SaveData saveData = SaveData.inst;
+            saveData = SaveData.inst;
             EditWrestlerData editDat = saveData.editWrestlerData[id];
             CostumeData[] cosDat = editDat.appearanceData.costumeData;
 
-            try
+            if (cosDat[0].valid)
             {
-
-                using (StreamWriter streamWriter = new StreamWriter(fname))
+                SaveFileDialog savefile = new SaveFileDialog();
+                savefile.InitialDirectory = "./AceModsData/AttireExtension/";
+                savefile.Filter = "TXT files (*.txt)|*.txt";
+                savefile.FileName = listBox1.SelectedItem.ToString() + "_";
+                if (savefile.ShowDialog() == DialogResult.OK)
                 {
-                    for (int i = 0; i < 9; i++)
+
+                    try
                     {
-                        for (int j = 0; j < 16; j++)
+                        using (StreamWriter streamWriter = new StreamWriter(savefile.FileName))
                         {
-                            streamWriter.WriteLine(cosDat[num].layerTex[i, j]);
-                            streamWriter.WriteLine(cosDat[num].color[i, j].r);
-                            streamWriter.WriteLine(cosDat[num].color[i, j].g);
-                            streamWriter.WriteLine(cosDat[num].color[i, j].b);
-                            streamWriter.WriteLine(cosDat[num].color[i, j].a);
-                            streamWriter.WriteLine(cosDat[num].highlightIntensity[i, j]);
+                            for (int i = 0; i < 9; i++)
+                            {
+                                for (int j = 0; j < 16; j++)
+                                {
+                                    streamWriter.WriteLine(cosDat[num].layerTex[i, j]);
+                                    streamWriter.WriteLine(cosDat[num].color[i, j].r);
+                                    streamWriter.WriteLine(cosDat[num].color[i, j].g);
+                                    streamWriter.WriteLine(cosDat[num].color[i, j].b);
+                                    streamWriter.WriteLine(cosDat[num].color[i, j].a);
+                                    streamWriter.WriteLine(cosDat[num].highlightIntensity[i, j]);
+                                }
+                                streamWriter.WriteLine(cosDat[num].partsScale[i]);
+                            }
+                            streamWriter.Dispose();
+                            streamWriter.Close();
                         }
-                        streamWriter.WriteLine(cosDat[num].partsScale[i]);
                     }
-                    streamWriter.Dispose();
-                    streamWriter.Close();
+                    catch
+                    {
+                        MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".txt'");
+                    }
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".txt'");
             }
         }
 
@@ -163,14 +206,7 @@ namespace Ace
         {
             if (listBox1.SelectedIndex != -1)
             {
-                SaveFileDialog savefile = new SaveFileDialog();
-                savefile.InitialDirectory = "./AceModsData/AttireExtension/";
-                savefile.Filter = "TXT files (*.txt)|*.txt";
-                if (savefile.ShowDialog() == DialogResult.OK)
-                {
-                    SaveIndividualAttires(0, savefile.FileName);
-                }
-                    
+                SaveIndividualAttires(0);
             }
         }
 
@@ -178,14 +214,7 @@ namespace Ace
         {
             if (listBox1.SelectedIndex != -1)
             {
-                SaveFileDialog savefile = new SaveFileDialog();
-                savefile.InitialDirectory = "./AceModsData/AttireExtension/";
-                savefile.Filter = "TXT files (*.txt)|*.txt";
-                if (savefile.ShowDialog() == DialogResult.OK)
-                {
-                    SaveIndividualAttires(1, savefile.FileName);
-                }
-
+                SaveIndividualAttires(1);
             }
         }
 
@@ -193,14 +222,7 @@ namespace Ace
         {
             if (listBox1.SelectedIndex != -1)
             {
-                SaveFileDialog savefile = new SaveFileDialog();
-                savefile.InitialDirectory = "./AceModsData/AttireExtension/";
-                savefile.Filter = "TXT files (*.txt)|*.txt";
-                if (savefile.ShowDialog() == DialogResult.OK)
-                {
-                    SaveIndividualAttires(2, savefile.FileName);
-                }
-
+                SaveIndividualAttires(2);
             }
         }
 
@@ -208,13 +230,7 @@ namespace Ace
         {
             if (listBox1.SelectedIndex != -1)
             {
-                SaveFileDialog savefile = new SaveFileDialog();
-                savefile.InitialDirectory = "./AceModsData/AttireExtension/";
-                savefile.Filter = "TXT files (*.txt)|*.txt";
-                if (savefile.ShowDialog() == DialogResult.OK)
-                {
-                    SaveIndividualAttires(3, savefile.FileName);
-                }
+                SaveIndividualAttires(3);
             }
         }
 
@@ -222,7 +238,7 @@ namespace Ace
         {
             GlobalWork gw = GlobalWork.inst;
             PlayerMan pm = PlayerMan.inst;
-            SaveData saveData = SaveData.inst;
+            saveData = SaveData.inst;
             int id = listBox1.SelectedIndex;
             string plObjname = DataBase.GetWrestlerFullName(saveData.editWrestlerData[listBox1.SelectedIndex].wrestlerParam);
             CostumeData plObjCos = saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[cos];
