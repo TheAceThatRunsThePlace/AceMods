@@ -65,7 +65,7 @@ namespace Ace
                         return;
                     }
 
-                    using (StreamWriter streamWriter = new StreamWriter("./AceModsData/AttireExtension/" + name + "_" + (a + 1) + ".txt"))
+                    using (StreamWriter streamWriter = new StreamWriter("./AceModsData/AttireExtension/" + name + "_" + (a + 1) + ".cos"))
                     {
                         for (int i = 0; i < 9; i++)
                         {
@@ -88,7 +88,7 @@ namespace Ace
             }
             catch
             {
-                MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".txt'");
+                MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".cos'");
             }
         }
 
@@ -168,7 +168,7 @@ namespace Ace
             {
                 SaveFileDialog savefile = new SaveFileDialog();
                 savefile.InitialDirectory = "./AceModsData/AttireExtension/";
-                savefile.Filter = "TXT files (*.txt)|*.txt";
+                savefile.Filter = "COSTUME Files (*.cos)|*.cos";
                 savefile.FileName = listBox1.SelectedItem.ToString() + "_";
                 if (savefile.ShowDialog() == DialogResult.OK)
                 {
@@ -196,7 +196,7 @@ namespace Ace
                     }
                     catch
                     {
-                        MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".txt'");
+                        MessageBox.Show("Couldn't save attire to './AceModsData/AttireExtension/" + name + ".cos'");
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace Ace
             CostumeData plObjCos = saveData.editWrestlerData[listBox1.SelectedIndex].appearanceData.costumeData[cos];
 
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "TXT files (*.txt)|*.txt";
+            fileDialog.Filter = "COSTUME Files (*.cos)|*.cos";
             fileDialog.InitialDirectory = "./AceModsData/AttireExtension/";
 
 
@@ -334,6 +334,29 @@ namespace Ace
         {
             if (listBox1.SelectedIndex != -1)
                 ImportAttire(3);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "")
+            {
+                return;
+            }
+            for (int i = listBox1.Items.Count - 1; i >= 0; i--)
+            {
+                if (listBox1.Items[i].ToString().ToLower().Contains(textBox1.Text.ToLower()))
+                {
+                    listBox1.SetSelected(i, true);
+                }
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button11_Click(this, new EventArgs());
+            }
         }
     }
 }

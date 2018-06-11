@@ -38,14 +38,16 @@ namespace Ace
             {
                 comboBox1.Items.Add(s.Name.Replace(s.Extension, ""));
             }
-            label2.Text = DataBase.GetWrestlerFullName(EditFuckery.plObj.WresParam);
-            label3.Text = "Slot: " + pl2.ToString();
+            label2.Text = DataBase.GetWrestlerFullName(EditFuckery.plObj.WresParam) + " - Slot " + pl2.ToString();
             this.TopMost = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            chosenAttire = (comboBox1.SelectedItem.ToString().Replace(DataBase.GetWrestlerFullName(EditFuckery.plObj.WresParam), ""));
+            if (comboBox1.SelectedIndex != -1)
+            {
+                chosenAttire = (comboBox1.SelectedItem.ToString().Replace(DataBase.GetWrestlerFullName(EditFuckery.plObj.WresParam), ""));
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

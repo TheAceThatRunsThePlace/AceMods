@@ -60,6 +60,23 @@ namespace Ace
         public static Renderer rampRend = null;
         */
 
+        [Hook(TargetClass = "Menu_Title", TargetMethod = "UserInput", InjectionLocation = int.MaxValue, InjectDirection = HookInjectDirection.Before, InjectFlags = HookInjectFlags.None, Group = "AnmAprons")]
+        public static void CreateAnmFolders()
+        {
+            if (!Directory.Exists("./AceModsData/AnmAprons/"))
+            {
+                Directory.CreateDirectory("./AceModsData/AnmAprons/");
+            }
+            if (!Directory.Exists("./AceModsData/AnmMats/"))
+            {
+                Directory.CreateDirectory("./AceModsData/AnmMats/");
+            }
+            if (!Directory.Exists("./AceModsData/AnmPosts/"))
+            {
+                Directory.CreateDirectory("./AceModsData/AnmPosts/");
+            }
+        }
+
         [Hook(TargetClass = "MatchMain", TargetMethod = "CreatePlayers", InjectionLocation = int.MaxValue, InjectDirection = HookInjectDirection.Before, InjectFlags = HookInjectFlags.None, Group = "AnmAprons")]
         public static void LoadTextures()
         {
