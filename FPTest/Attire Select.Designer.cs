@@ -37,10 +37,11 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 54);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(157, 21);
+            this.comboBox1.Size = new System.Drawing.Size(195, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -48,7 +49,7 @@
             // 
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 18);
+            this.label1.Size = new System.Drawing.Size(196, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Which attire?";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -68,7 +69,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(94, 81);
+            this.button2.Location = new System.Drawing.Point(132, 81);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -80,7 +81,7 @@
             // 
             this.label2.Location = new System.Drawing.Point(11, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 23);
+            this.label2.Size = new System.Drawing.Size(196, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = " Top Text";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,7 +93,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(182, 110);
+            this.ClientSize = new System.Drawing.Size(219, 110);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

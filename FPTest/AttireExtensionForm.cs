@@ -133,6 +133,23 @@ namespace Ace
             {
                 button6.Enabled = true;
             }
+
+            if (listBox1.SelectedIndex != -1)
+            {
+                DirectoryInfo di = new DirectoryInfo("./AceModsData/AttireExtension/");
+                FileInfo[] files = di.GetFiles(listBox1.SelectedItem.ToString() + "*.cos");
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+
+                if (files.Length > 0)
+                    comboBox2.Items.Add("None");
+
+                foreach (FileInfo s in files)
+                {
+                    comboBox1.Items.Add(s.Name.Replace(s.Extension, ""));
+                    comboBox2.Items.Add(s.Name.Replace(s.Extension, ""));
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -271,6 +288,7 @@ namespace Ace
                             }
                             loadedCostumeData.partsScale[i] = float.Parse(cdReader.ReadLine());
                         }
+                        string test = cdReader.ReadLine();
                     }
 
                     try
@@ -338,7 +356,7 @@ namespace Ace
 
         private void button11_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (textBox1.Text == "" || textBox1.Text == " " || textBox1.Text == "  ")
             {
                 return;
             }
@@ -357,6 +375,108 @@ namespace Ace
             {
                 button11_Click(this, new EventArgs());
             }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+            if (comboBox1.SelectedIndex != -1 && comboBox2.SelectedIndex != -1)
+            {
+                List<string> cosFileDat = new List<string>();
+                string file1 = comboBox1.SelectedItem.ToString();
+                string file2 = comboBox2.SelectedItem.ToString();
+                string dir = "./AceModsData/AttireExtension/" + file1 + ".cos";
+                
+                //MessageBox.Show(dir);
+                if (!File.Exists(dir))
+                {
+                    return;
+                }
+
+                foreach (string s in File.ReadAllLines(dir))
+                {
+                    cosFileDat.Add(s);
+                }
+
+                if (file2 != "None")
+                {
+                    if (cosFileDat.Count <= 873)
+                    {
+                        cosFileDat.Add(file2);
+                    }
+                    else
+                    {
+                        cosFileDat[cosFileDat.Count - 1] = file2;
+                    }
+                }
+                else
+                {
+                    if (!IsNumeric(cosFileDat[cosFileDat.Count - 1]))
+                    {
+                        cosFileDat.RemoveAt(cosFileDat.Count - 1);
+                    }
+                    //cosFileDat[cosFileDat.Count - 1] = "";
+                }
+
+                string[] lines = cosFileDat.ToArray();
+                File.WriteAllLines(dir, lines);
+
+                //using (StreamReader sr = new StreamReader(dir))
+                //{
+                //    for (int i = 0; i < 874; i++)
+                //    {
+                //        cosFileDat[i] = sr.ReadLine();
+                //    }
+                //}
+                //MessageBox.Show(cosFileDat[0]);
+                //cosFileDat[873] = file2;
+                //using (StreamWriter sw = new StreamWriter(dir))
+                //{
+                //    for (int i = 0; i < cosFileDat.Count; i++)
+                //    {
+                //        sw.WriteLine(cosFileDat[i]);
+                //    }
+                //}
+
+            }
+            
+        }
+
+        public static bool IsNumeric(object Expression)
+        {
+            double retNum;
+
+            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            List<string> cosFileDat = new List<string>();
+            string file1 = comboBox1.SelectedItem.ToString();
+            string dir = "./AceModsData/AttireExtension/" + file1 + ".cos";
+            foreach (string s in File.ReadAllLines(dir))
+            {
+                cosFileDat.Add(s);
+            }
+            if (!IsNumeric(cosFileDat[cosFileDat.Count - 1]))
+            {
+                comboBox2.Text = cosFileDat[cosFileDat.Count - 1];
+            }
+            else
+            {
+                comboBox2.SelectedIndex = 0;
+            }
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

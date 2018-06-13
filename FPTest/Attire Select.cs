@@ -39,6 +39,7 @@ namespace Ace
                 comboBox1.Items.Add(s.Name.Replace(s.Extension, ""));
             }
             label2.Text = DataBase.GetWrestlerFullName(EditFuckery.plObj.WresParam) + " - Slot " + pl2.ToString();
+            comboBox1.SelectedIndex = 0;
             this.TopMost = true;
         }
 
